@@ -2,9 +2,10 @@
 {
 	Properties{
 		_MainTex ("Texture 2D", 2D) = "white"{}
+		_EmissionTex ("Emission Texture", 2D) = "white"{}
 		_Color("Color", Color) = (1,1,1,1)
 		_InvisColor ("Invisible Color", Color) = (1,1,1,0)
-		_Emission ("Base Emission", Color) = (1,1,1,1)
+		[HDR] _Emission ("Base Emission", Color) = (1,1,1)
 		_Glossiness("Smoothness", Range(0,1)) = 0.5
 		_Metallic("Metallic", Range(0,1)) = 0.0
 
@@ -13,7 +14,8 @@
 		_DissolvePower ("Dissolve Power", Float) = 1
 		_DissolveScale ("Dissolve (Perlin) Scale", Float) = 1
 		_ShowTexture("ShowTexture", Range(0,1)) = 0.0
-		_EmissionStrength ("Emission Strength", Float) = 0
+		_EmissionStrength ("Emission Strength - Border", Float) = 0
+		_EmissionStrengthDetail ("Emission Strength - Detail", Float) = 0
 		_EmissionColor ("Emission Color", Color) = (1,1,1,1)
 		_EmissionThreshold("Emission Threshold", Float) = 0.3
 		_EmissionUpper ("Emission Upper Threshold", Float) = 0.2
@@ -202,10 +204,12 @@
 		}
 
 		sampler2D _MainTex;
+		sampler2D _EmissionTex;
 		struct Input 
 		{
 			float3 worldPos;
 			float2 uv_MainTex;
+			float2 uv_EmissionTex;
 		};
 
 
@@ -221,6 +225,7 @@
 		fixed4 _InvisColor;
 		fixed4 _Emission;
 		float _EmissionStrength;
+		float _EmissionStrengthDetail;
 		fixed4 _EmissionColor;
 		float _EmissionThreshold;
 		float _EmissionUpper;
@@ -229,6 +234,7 @@
 		{		
 			// Albedo comes from a texture tinted by color
 			half t = tex2D(_MainTex, IN.uv_MainTex).r;
+			fixed4 alphagrab = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 			//half gradient = tex2D(_MainTex, IN.worldPos.rg).r;
 			float camDistance = distance(IN.worldPos, _WorldSpaceCameraPos);
 			float dissolvePercentage = camDistance / _DissolveDistance;
@@ -243,7 +249,11 @@
 			clip(gradient - clipThreshold);
 
 			fixed4 c = lerp(t,gradient, _ShowTexture) * _Color;
-			o.Albedo = c.rgb * (1-showColor) + _InvisColor * showColor;
+
+			fixed4 emissionGrab = tex2D (_EmissionTex, IN.uv_EmissionTex) * _Emission * _EmissionStrengthDetail * (1-showColor);
+			float3 albedoOutput = c.rgb * (1-showColor) + _InvisColor * showColor;
+			albedoOutput += emissionGrab.rgb;
+			o.Albedo = albedoOutput;
 			//color = (1-useDissolve)*color + useDissolve*_DissolveColor;
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
@@ -253,7 +263,8 @@
 			float borderThreshold = dissolvePercentage * _EmissionThreshold;
 			float emissionBorder = gradient - borderThreshold < _EmissionUpper;
 
-			o.Emission = _Emission * (1-showColor) + (_EmissionColor * _EmissionStrength * emissionBorder) * (1-showColor);
+			//o.Emission = _Emission * (1-showColor) + (_EmissionColor * _EmissionStrength * emissionBorder) * (1-showColor);
+			o.Emission = (_EmissionColor * _EmissionStrength * emissionBorder) * (1-showColor);
 		}
 
 		ENDCG

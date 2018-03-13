@@ -39,8 +39,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 6a54e32131bee2a42b1a85f13ebd658f, type: 3}
-        m_Scale: {x: 2, y: 20}
+        m_Texture: {fileID: 2800000, guid: 52fb9790650d0324c8b24cae56159844, type: 3}
+        m_Scale: {x: 1, y: 10}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -60,7 +60,7 @@ Material:
     - _ClipThreshold: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DissolveDistance: 10
+    - _DissolveDistance: 5
     - _DissolvePower: 2
     - _DissolveScale: 1
     - _DstBlend: 10
@@ -68,9 +68,9 @@ Material:
     - _EmissionThreshold: 2.2
     - _EmissionUpper: 0.01
     - _GlossMapScale: 1
-    - _Glossiness: 0.24
+    - _Glossiness: 0.764
     - _GlossyReflections: 1
-    - _Metallic: 0.495
+    - _Metallic: 0
     - _Mode: 2
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -81,7 +81,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Emission: {r: 0, g: 0.172, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Emission: {r: 0.25, g: 0.25, b: 0.25, a: 1}
     - _EmissionColor: {r: 0, g: 1, b: 0.459, a: 1}
-    - _InvisColor: {r: 1, g: 1, b: 1, a: 1}
+    - _InvisColor: {r: 1, g: 1, b: 1, a: 0}
