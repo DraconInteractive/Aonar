@@ -22,18 +22,21 @@ public class GoalPlatform : MonoBehaviour {
 
 	ParticleSystem ps;
 
+	public GameObject hoverPiece, instHover;
+	public Vector3 hoverOffset;
 	void Awake () {
 		ps = GetComponent<ParticleSystem> ();
 	}
 
-	void Update () {
-//		if (activated) {
-//			float dist = Vector3.Distance (transform.position, Player.player.transform.position);
-//			if (dist > range) {
-//				Destroy (this.gameObject);
-//			}
-//		}
+	void Start () {
+		if (hoverPiece != null) {
+			instHover = Instantiate (hoverPiece, transform.position + hoverOffset, transform.rotation, this.transform) as GameObject;
+		}
 	}
+	void Update () {
+
+	}
+
 	void OnCollisionEnter (Collision col) {
 		if (col.transform.tag == "Player" && !activated) {
 			if (!target && !pedestal) {
@@ -75,6 +78,9 @@ public class GoalPlatform : MonoBehaviour {
 
 		ps.Play ();
 
+		if (instHover != null) {
+			Destroy (instHover);
+		}
 		activated = true;
 	}
 

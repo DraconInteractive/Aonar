@@ -13,6 +13,8 @@ public class CameraController : MonoBehaviour {
 
 	public AudioClip[] footsteps;
 	AudioSource aS;
+
+	bool footstepPlaying = false;
 	// Use this for initialization
 	void Start () {
 		player = Player.player;
@@ -33,11 +35,17 @@ public class CameraController : MonoBehaviour {
 		Vector3 lp = transform.localPosition;
 		timer += Time.deltaTime * speed * Input.GetAxis("Vertical");
 		headY = Mathf.Sin (timer) * amplitude;
-		if (Input.GetAxis("Vertical") > 0 && headY < -0.08f) {
-			print ("footstep");
+		if (Input.GetAxis("Vertical") != 0 && headY < -0.08f && !footstepPlaying) {
+			//print ("footstep");
 			aS.PlayOneShot (footsteps [Random.Range (0, footsteps.Length)]);
+			footstepPlaying = true;
+			Invoke ("ResetFootstep", 0.1f);
 		}
 		lp.y = eyeHeight + headY;
 		transform.localPosition = lp;
+	}
+
+	void ResetFootstep () {
+		footstepPlaying = false;
 	}
 }

@@ -6,20 +6,23 @@
 		_Color("Color", Color) = (1,1,1,1)
 		_InvisColor ("Invisible Color", Color) = (1,1,1,0)
 		[HDR] _Emission ("Base Emission", Color) = (1,1,1)
+		[HDR] _InvisEmission ("Invis Emission", Color) = (1,1,1)
 		_Glossiness("Smoothness", Range(0,1)) = 0.5
 		_Metallic("Metallic", Range(0,1)) = 0.0
 
 		//_DissolvePercentage("Dissolve Percentage", Range(0,1)) = 0.0
 		_DissolveDistance("Dissolve Distance", Float) = 1
+		_ClipDistance ("Clip Distance", Float) = 1
 		_DissolvePower ("Dissolve Power", Float) = 1
 		_DissolveScale ("Dissolve (Perlin) Scale", Float) = 1
 		_ShowTexture("ShowTexture", Range(0,1)) = 0.0
 		_EmissionStrength ("Emission Strength - Border", Float) = 0
 		_EmissionStrengthDetail ("Emission Strength - Detail", Float) = 0
+		_EmissionStrengthInvis ("Emission Strength - Invis", Float) = 0
 		_EmissionColor ("Emission Color", Color) = (1,1,1,1)
 		_EmissionThreshold("Emission Threshold", Float) = 0.3
 		_EmissionUpper ("Emission Upper Threshold", Float) = 0.2
-		_ClipDistance ("Clip Distance", Float) = 1
+
 	}
 	SubShader{
 		Tags{ "RenderType" = "Opaque" }
@@ -224,8 +227,10 @@
 		fixed4 _Color;
 		fixed4 _InvisColor;
 		fixed4 _Emission;
+		fixed4 _InvisEmission;
 		float _EmissionStrength;
 		float _EmissionStrengthDetail;
+		float _EmissionStrengthInvis;
 		fixed4 _EmissionColor;
 		float _EmissionThreshold;
 		float _EmissionUpper;
@@ -253,6 +258,7 @@
 			fixed4 emissionGrab = tex2D (_EmissionTex, IN.uv_EmissionTex) * _Emission * _EmissionStrengthDetail * (1-showColor);
 			float3 albedoOutput = c.rgb * (1-showColor) + _InvisColor * showColor;
 			albedoOutput += emissionGrab.rgb;
+			albedoOutput += _InvisEmission.rgb * _EmissionStrengthInvis;
 			o.Albedo = albedoOutput;
 			//color = (1-useDissolve)*color + useDissolve*_DissolveColor;
 			// Metallic and smoothness come from slider variables

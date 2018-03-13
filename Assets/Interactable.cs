@@ -34,16 +34,5 @@ public class Interactable : MonoBehaviour {
 			r.material.SetColor ("_EmissionColor", new Color (0, 1, 0.5f, 1));
 		}
 	}
-
-	void OnTriggerEnter (Collision col) {
-		if (col.transform.tag == "Player") {
-			indicator.SetActive (true);
-		}
-	}
-
-	void OnTriggerExit (Collision col) {
-		if (col.transform.tag == "Player") {
-			indicator.SetActive (false);
-		}
-	}
+		
 }

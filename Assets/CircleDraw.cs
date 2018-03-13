@@ -16,7 +16,7 @@ public class CircleDraw : MonoBehaviour {
 		line.positionCount = segments + 1;
 		line.useWorldSpace = false;
 
-		float x, y, z;
+		float x, z;
 
 		float angle = 20f;
 
