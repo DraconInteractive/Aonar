@@ -68,7 +68,7 @@ Material:
     - _DissolveScale: 0.1
     - _DstBlend: 10
     - _EmissionStrength: 1
-    - _EmissionStrengthDetail: 1
+    - _EmissionStrengthDetail: 5
     - _EmissionThreshold: 2.2
     - _EmissionUpper: 0.01
     - _GlossMapScale: 1
