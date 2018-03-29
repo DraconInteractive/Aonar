@@ -43,12 +43,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f177303393a7c84488d40d0843aab036, type: 3}
+        m_Texture: {fileID: 2800000, guid: b849444d32b0d014f89eea7ab00e6c7c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: ddd09ea0b8734ac4bbf83b4e32116d7f, type: 3}
+        m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -61,7 +65,7 @@ Material:
     m_Floats:
     - _BoxAlpha: 1
     - _BumpScale: 1
-    - _ClipDistance: 120
+    - _ClipDistance: 12
     - _ClipThreshold: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -72,20 +76,21 @@ Material:
     - _DissolveScale: 0.25
     - _DstBlend: 10
     - _EmissionStrength: 2
-    - _EmissionStrengthDetail: 0
-    - _EmissionStrengthInvis: 0
+    - _EmissionStrengthDetail: 1
+    - _EmissionStrengthInvis: 1
     - _EmissionThreshold: 2.2
     - _EmissionUpper: 0.01
     - _GlossMapScale: 1
-    - _Glossiness: 0.784
+    - _Glossiness: 0.811
     - _GlossyReflections: 1
     - _MaxDist: 1
     - _MaxDistance: 30
-    - _Metallic: 0
+    - _Metallic: 0.824
     - _Mode: 2
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _PlayerDist: 0
+    - _Progress: 1
     - _ShowTexture: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -95,6 +100,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 0}
     - _Emission: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 1, b: 0.547, a: 1}
     - _InvisColor: {r: 0.25735295, g: 0.25735295, b: 0.25735295, a: 0}
     - _InvisEmission: {r: 0, g: 0, b: 0, a: 1}

@@ -2,6 +2,7 @@
 {
 	Properties{
 		_MainTex ("Texture 2D", 2D) = "white"{}
+		_NormalTex ("Normal Map", 2D) = "bump"{}
 		_EmissionTex ("Emission Texture", 2D) = "white"{}
 		_Color("Color", Color) = (1,1,1,1)
 		_InvisColor ("Invisible Color", Color) = (1,1,1,0)
@@ -21,9 +22,8 @@
 		_EmissionStrengthInvis ("Emission Strength - Invis", Float) = 0
 		_EmissionColor ("Emission Color", Color) = (1,1,1,1)
 		_EmissionThreshold("Emission Threshold", Float) = 0.3
-		_EmissionUpper ("Emission Upper Threshold", Float) = 0.2
-
-	}
+		_EmissionUpper ("Emission Upper Threshold", Range(0,1)) = 0.2
+}
 	SubShader{
 		Tags{ "RenderType" = "Opaque" }
 		LOD 200
@@ -207,12 +207,14 @@
 		}
 
 		sampler2D _MainTex;
+		sampler2D _NormalTex;
 		sampler2D _EmissionTex;
 		struct Input 
 		{
 			float3 worldPos;
 			float2 uv_MainTex;
 			float2 uv_EmissionTex;
+			float2 uv_NormalTex;
 		};
 
 
@@ -242,8 +244,8 @@
 			fixed4 alphagrab = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 			//half gradient = tex2D(_MainTex, IN.worldPos.rg).r;
 			float camDistance = distance(IN.worldPos, _WorldSpaceCameraPos);
-			float dissolvePercentage = camDistance / _DissolveDistance;
-			float clipPercentage = camDistance / _ClipDistance;
+			float dissolvePercentage = (camDistance / _DissolveDistance);
+			float clipPercentage = (camDistance / _ClipDistance);
 			dissolvePercentage = pow(dissolvePercentage, 4);
 			clipPercentage = pow (clipPercentage, 4);
 			half gradient = snoise(IN.worldPos.rgb) * _DissolveScale;
@@ -271,6 +273,7 @@
 
 			//o.Emission = _Emission * (1-showColor) + (_EmissionColor * _EmissionStrength * emissionBorder) * (1-showColor);
 			o.Emission = (_EmissionColor * _EmissionStrength * emissionBorder) * (1-showColor);
+			o.Normal = UnpackNormal (tex2D (_NormalTex, IN.uv_NormalTex));
 		}
 
 		ENDCG

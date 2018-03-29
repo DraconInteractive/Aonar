@@ -22,8 +22,14 @@ public class GoalPlatform : MonoBehaviour {
 
 	ParticleSystem ps;
 
-	public GameObject hoverPiece, instHover;
+	[Header("Hover Properties")]
 	public Vector3 hoverOffset;
+	public GameObject hoverPiece, instHover;
+
+	[Header("Scene Changer Properties")]
+	public bool sceneChanger;
+	public string sceneName;
+
 	void Awake () {
 		ps = GetComponent<ParticleSystem> ();
 	}
@@ -33,13 +39,14 @@ public class GoalPlatform : MonoBehaviour {
 			instHover = Instantiate (hoverPiece, transform.position + hoverOffset, transform.rotation, this.transform) as GameObject;
 		}
 	}
+
 	void Update () {
 
 	}
 
 	void OnCollisionEnter (Collision col) {
 		if (col.transform.tag == "Player" && !activated) {
-			if (!target && !pedestal) {
+			if (!target && !pedestal && !sceneChanger) {
 				ActivatePlatform ();
 			} else if (pedestal) {
 				bool allActivated = true;
@@ -51,6 +58,8 @@ public class GoalPlatform : MonoBehaviour {
 				if (allActivated) {
 					ActivatePlatform ();
 				}
+			} else if (sceneChanger) {
+				UnityEngine.SceneManagement.SceneManager.LoadScene (sceneName);
 			}
 
 		} 

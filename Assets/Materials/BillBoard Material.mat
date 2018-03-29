@@ -72,7 +72,8 @@ Material:
     - _DissolveScale: 0.25
     - _DstBlend: 10
     - _EmissionStrength: 2
-    - _EmissionStrengthDetail: 3
+    - _EmissionStrengthDetail: 6.95
+    - _EmissionStrengthInvis: 0
     - _EmissionThreshold: 2.2
     - _EmissionUpper: 0.01
     - _GlossMapScale: 1
@@ -96,3 +97,4 @@ Material:
     - _Emission: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 1, a: 1}
     - _InvisColor: {r: 0, g: 0, b: 0, a: 0}
+    - _InvisEmission: {r: 1, g: 1, b: 1, a: 1}
