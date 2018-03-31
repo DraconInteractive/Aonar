@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: UpGroundMaterial
+  m_Name: UpGroundMaterial 3
   m_Shader: {fileID: 4800000, guid: 9c9409aad08141d4b9f3adcd45a66f6e, type: 3}
   m_ShaderKeywords: _ALPHABLEND_ON _EMISSION
   m_LightmapFlags: 1
@@ -39,11 +39,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 9d4afe141a7e8ad4cb3ebb3c88a63e60, type: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f177303393a7c84488d40d0843aab036, type: 3}
+        m_Texture: {fileID: 2800000, guid: b849444d32b0d014f89eea7ab00e6c7c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -51,8 +51,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 3, y: 3}
+        m_Texture: {fileID: 2800000, guid: ddd09ea0b8734ac4bbf83b4e32116d7f, type: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -65,27 +65,27 @@ Material:
     m_Floats:
     - _BoxAlpha: 1
     - _BumpScale: 1
-    - _ClipDistance: 12
+    - _ClipDistance: 8
     - _ClipThreshold: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DissolveDistance: 5
+    - _DissolveDistance: 4
     - _DissolveLevel: 0.5
     - _DissolvePercentage: 0
     - _DissolvePower: 2
     - _DissolveScale: 0.25
     - _DstBlend: 10
     - _EmissionStrength: 2
-    - _EmissionStrengthDetail: 1
-    - _EmissionStrengthInvis: 1
+    - _EmissionStrengthDetail: 5
+    - _EmissionStrengthInvis: 2
     - _EmissionThreshold: 2.2
     - _EmissionUpper: 0.01
     - _GlossMapScale: 1
-    - _Glossiness: 0.811
+    - _Glossiness: 0.278
     - _GlossyReflections: 1
     - _MaxDist: 1
     - _MaxDistance: 30
-    - _Metallic: 0.824
+    - _Metallic: 0.509
     - _Mode: 2
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -99,7 +99,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 0}
-    - _Emission: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 1, a: 1}
-    - _InvisColor: {r: 0.25735295, g: 0.25735295, b: 0.25735295, a: 0}
+    - _Emission: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0.8602941, b: 0.5832794, a: 1}
+    - _InvisColor: {r: 0.4044118, g: 0.4044118, b: 0.4044118, a: 0}
     - _InvisEmission: {r: 0, g: 0, b: 0, a: 1}
