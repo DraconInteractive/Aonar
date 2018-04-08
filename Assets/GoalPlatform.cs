@@ -59,12 +59,19 @@ public class GoalPlatform : MonoBehaviour {
 					ActivatePlatform ();
 				}
 			} else if (sceneChanger) {
-				UnityEngine.SceneManagement.SceneManager.LoadScene (sceneName);
+				StartCoroutine (NextScene ());
 			}
 
 		} 
 	}
 
+	IEnumerator NextScene () {
+		Fade.fade.StartFade (true, 1);
+		yield return new WaitForSeconds (1);
+		UnityEngine.SceneManagement.SceneManager.LoadScene (sceneName);
+		yield break;
+
+	}
 	void ActivatePlatform () {
 		aS = GetComponent<AudioSource> ();
 		if (clip != null) {

@@ -65,11 +65,11 @@ Material:
     m_Floats:
     - _BoxAlpha: 1
     - _BumpScale: 1
-    - _ClipDistance: 8
+    - _ClipDistance: 12
     - _ClipThreshold: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DissolveDistance: 4
+    - _DissolveDistance: 5
     - _DissolveLevel: 0.5
     - _DissolvePercentage: 0
     - _DissolvePower: 2
@@ -100,6 +100,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 0}
     - _Emission: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0.8602941, b: 0.5832794, a: 1}
+    - _EmissionColor: {r: 0, g: 0.66176474, b: 0.44867647, a: 1}
     - _InvisColor: {r: 0.4044118, g: 0.4044118, b: 0.4044118, a: 0}
-    - _InvisEmission: {r: 0, g: 0, b: 0, a: 1}
+    - _InvisEmission: {r: 0, g: 0, b: 0, a: 0}
