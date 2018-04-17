@@ -236,16 +236,20 @@
 		fixed4 _EmissionColor;
 		float _EmissionThreshold;
 		float _EmissionUpper;
+		float _ExternalDistModifier;
+		float _ExternalClipModifier;
+		float _ExternalDetailEmissionModifier;
 
 		void surf(Input IN, inout SurfaceOutputStandard o)
 		{		
 			// Albedo comes from a texture tinted by color
 			half t = tex2D(_MainTex, IN.uv_MainTex).r;
+			half4 texColor = tex2D(_MainTex, IN.uv_MainTex);
 			fixed4 alphagrab = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 			//half gradient = tex2D(_MainTex, IN.worldPos.rg).r;
 			float camDistance = distance(IN.worldPos, _WorldSpaceCameraPos);
-			float dissolvePercentage = (camDistance / _DissolveDistance);
-			float clipPercentage = (camDistance / _ClipDistance);
+			float dissolvePercentage = (camDistance / (_DissolveDistance + _ExternalDistModifier));
+			float clipPercentage = (camDistance / (_ClipDistance + _ExternalClipModifier));
 			dissolvePercentage = pow(dissolvePercentage, 4);
 			clipPercentage = pow (clipPercentage, 4);
 			half gradient = snoise(IN.worldPos.rgb) * _DissolveScale;
@@ -256,8 +260,8 @@
 			clip(gradient - clipThreshold);
 
 			fixed4 c = lerp(t,gradient, _ShowTexture) * _Color;
-
-			fixed4 emissionGrab = tex2D (_EmissionTex, IN.uv_EmissionTex) * _Emission * _EmissionStrengthDetail * (1-showColor);
+			c *= texColor;
+			fixed4 emissionGrab = tex2D (_EmissionTex, IN.uv_EmissionTex) * _Emission * (_EmissionStrengthDetail + _ExternalDetailEmissionModifier) * (1-showColor);
 			float3 albedoOutput = c.rgb * (1-showColor) + _InvisColor * showColor;
 			albedoOutput += emissionGrab.rgb;
 			albedoOutput += _InvisEmission.rgb * _EmissionStrengthInvis;
@@ -273,7 +277,7 @@
 
 			//o.Emission = _Emission * (1-showColor) + (_EmissionColor * _EmissionStrength * emissionBorder) * (1-showColor);
 			o.Emission = (_EmissionColor * _EmissionStrength * emissionBorder) * (1-showColor);
-			o.Normal = UnpackNormal (tex2D (_NormalTex, IN.uv_NormalTex));
+			o.Normal = UnpackNormal (tex2D (_NormalTex, IN.uv_NormalTex) * (1-showColor));
 		}
 
 		ENDCG

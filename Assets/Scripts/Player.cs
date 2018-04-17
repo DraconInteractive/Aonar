@@ -22,6 +22,10 @@ public class Player : MonoBehaviour {
 	public GameObject checkpoint;
 
 	public GameObject PETI;
+
+	public GameObject interactPrompt;
+
+	public bool useWeavers;
 	void Awake () {
 		player = this;
 		rb = GetComponent<Rigidbody> ();
@@ -29,10 +33,16 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Shader.SetGlobalFloat ("_ExternalDistModifier", 0);
+		Shader.SetGlobalFloat ("_ExternalClipModifier", 0);
+
 		ToggleCursorState (false);
 		Camera.main.transform.GetComponent<PostProcessingBehaviour>().profile.bloom.enabled = !isWebGL;
 		Fade.fade.StartFade (false, 1);
 
+		if (!useWeavers) {
+			weaver.SetActive (false);
+		}
 		//StartCoroutine (SelectableSearch ());
 	}
 	
@@ -83,6 +93,14 @@ public class Player : MonoBehaviour {
 			if (tile.myType == PuzzleTile.Type.Death) {
 				Kill ();
 			}
+		} else if (other.tag == "Interactable") {
+			interactPrompt.SetActive (true);
+		}
+	}
+
+	void OnTriggerExit (Collider other) {
+		if (other.tag == "Interactable") {
+			interactPrompt.SetActive (false);
 		}
 	}
 
@@ -141,6 +159,12 @@ public class Player : MonoBehaviour {
 		if (Physics.Raycast(ray, out hit, 10)) {
 			if (hit.transform.tag == "Interactable") {
 				Interactable i = hit.transform.GetComponent<Interactable> ();
+				if (i != null) {
+					i.Interact ();
+				}
+
+			} else if (hit.transform.tag == "Throne") {
+				ThroneInteractable i = hit.transform.GetComponent<ThroneInteractable> ();
 				i.Interact ();
 			} else {
 				print (hit.transform.name);
@@ -159,6 +183,9 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Shoot () {
+		if (!useWeavers) {
+			return;
+		}
 		if (GetActiveOrbitWeavers() > 0) {
 			DeactivateOrbitWeaver ();
 		} else {
@@ -169,6 +196,9 @@ public class Player : MonoBehaviour {
 	}
 
 	IEnumerator ShootWeaver () {
+		if (!useWeavers) {
+			yield break;
+		}
 		GameObject newWeaver = Instantiate (weaverPrefab, weaver.transform.position, Quaternion.identity);
 		newWeaver.transform.forward = (Camera.main.transform.position + Camera.main.transform.forward * 100) - weaver.transform.position;
 		MoveOrRotate mover = newWeaver.AddComponent<MoveOrRotate> ();
@@ -179,6 +209,9 @@ public class Player : MonoBehaviour {
 	}
 
 	public void StartLaser () {
+		if (!useWeavers) {
+			return;
+		}
 		laserActive = true;
 		if (laserRoutine != null) {
 			StopCoroutine (laserRoutine);
@@ -236,6 +269,9 @@ public class Player : MonoBehaviour {
 	}
 
 	public void ActivateOrbitWeaver () {
+		if (!useWeavers) {
+			return;
+		}
 		foreach (GameObject g in orbitWeavers) {
 			if (g.activeSelf == false) {
 				g.SetActive (true);
@@ -245,6 +281,9 @@ public class Player : MonoBehaviour {
 	}
 
 	public void DeactivateOrbitWeaver () {
+		if (!useWeavers) {
+			return;
+		}
 		GameObject lastActiveWeaver = null;
 		foreach (GameObject g in orbitWeavers) {
 			if (g.activeSelf) {
@@ -258,12 +297,18 @@ public class Player : MonoBehaviour {
 	}
 
 	public void ActivateAllOrbitWeavers () {
+		if (!useWeavers) {
+			return;
+		}
 		foreach (GameObject g in orbitWeavers) {
 			g.SetActive (true);
 		}
 	}
 
 	public int GetActiveOrbitWeavers () {
+		if (!useWeavers) {
+			return 0;
+		}
 		int i = 0;
 		foreach (GameObject g in orbitWeavers) {
 			if (g.activeSelf) {

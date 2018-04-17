@@ -23,7 +23,7 @@ public class Interactable : MonoBehaviour {
 
 	}
 
-	public void Interact () {
+	public virtual void Interact () {
 		activated = true;
 
 		if (turnGreen) {
