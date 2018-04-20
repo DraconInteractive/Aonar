@@ -11,8 +11,9 @@ public class Fade : MonoBehaviour {
 		fade = this;
 		img = GetComponent<Image> ();
 	}
-
+		
 	public void StartFade (bool toBlack, float speed) {
+		print ("fading:" + toBlack.ToString () + speed.ToString ());
 		if (fadeRoutine != null) {
 			StopCoroutine (fadeRoutine);
 		}
@@ -27,6 +28,7 @@ public class Fade : MonoBehaviour {
 	}
 
 	IEnumerator DoFade (bool toBlack, float speed) {
+		print ("IE Fading:" + toBlack + speed.ToString ());
 		if (toBlack) {
 			while (img.color.a < 1) {
 				Color c = img.color;

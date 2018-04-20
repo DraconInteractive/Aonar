@@ -17,6 +17,7 @@ public class DeathPlane : MonoBehaviour {
 	}
 
 	IEnumerator Die () {
+		print ("dying");
 		dying = true;
 		Fade.fade.StartFade(true, 1);
 		yield return new WaitForSeconds (1);

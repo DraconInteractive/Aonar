@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ThroneRoomController : MonoBehaviour {
 
@@ -27,9 +28,20 @@ public class ThroneRoomController : MonoBehaviour {
 	public ParticleSystem[] particles;
 
 	public AudioSource wooshAudio, flameAudio;
+
+	public Image blurImage;
+	public Button restart, exit;
 	// Use this for initialization
 	void Awake () {
 		instance = this;
+	}
+		
+	void Restart () {
+		UnityEngine.SceneManagement.SceneManager.LoadScene (0);
+	}
+
+	void Exit () {
+		Application.Quit ();
 	}
 
 	void Update () {
@@ -39,11 +51,20 @@ public class ThroneRoomController : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Start () {
+		restart.onClick.AddListener (() => Restart ());
+		exit.onClick.AddListener (() => Exit ());
+
+		blurImage.transform.GetChild (0).gameObject.SetActive (false);
+
 		Shader.SetGlobalFloat ("_ExternalDistModifier", 0);
 		Shader.SetGlobalFloat ("_ExternalClipModifier", 0);
 		Shader.SetGlobalFloat ("_ExternalDetailEmissionModifier", -3f);
 
+		blurImage.material.SetFloat ("_Size", 0);
+		blurImage.material.SetColor ("_Color", Color.white);
+
 		particles = particleContainer.GetComponentsInChildren<ParticleSystem> ();
+
 		foreach (ParticleSystem p in particles) {
 			p.Stop ();
 			Light l = p.GetComponent<Light> ();
@@ -107,7 +128,20 @@ public class ThroneRoomController : MonoBehaviour {
 			Shader.SetGlobalFloat ("_ExternalDetailEmissionModifier", f);
 			yield return null;
 		}
-		print ("SS");
+
+		yield return new WaitForSeconds (3);
+
+		Color c = Color.white;
+		for (float f = 0; f < 1; f += Time.deltaTime * 0.25f) {
+			c = Color.Lerp (Color.white, new Color (0.9f, 0.9f, 0.9f, 1), f);
+			blurImage.material.SetFloat ("_Size", f * 2);
+			blurImage.material.SetColor ("_Color", c);
+			yield return null;
+		}
+		blurImage.transform.GetChild (0).gameObject.SetActive (true);
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
 		yield return null;
 	}
+		
 }

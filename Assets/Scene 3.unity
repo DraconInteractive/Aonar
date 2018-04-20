@@ -2304,7 +2304,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 809445594
+  randomSeed: -889406214
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5744,8 +5744,7 @@ MonoBehaviour:
   clip: {fileID: 0}
   touchClip: {fileID: 8300000, guid: 3b4366cd500323145a8ac65235bd5fc5, type: 3}
   assocTiles: []
-  activateChunks:
-  - {fileID: 0}
+  activateChunks: []
   deactivateChunks: []
   range: 100
   target: 0
@@ -11316,8 +11315,7 @@ MonoBehaviour:
   clip: {fileID: 0}
   touchClip: {fileID: 8300000, guid: 3b4366cd500323145a8ac65235bd5fc5, type: 3}
   assocTiles: []
-  activateChunks:
-  - {fileID: 0}
+  activateChunks: []
   deactivateChunks: []
   range: 100
   target: 0
@@ -11643,7 +11641,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1851700275
+  randomSeed: 1755848962
   InitialModule:
     serializedVersion: 3
     enabled: 1

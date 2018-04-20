@@ -80,12 +80,18 @@ public class GoalPlatform : MonoBehaviour {
 		aS.PlayOneShot (touchClip);
 		Player.player.ActivateAllOrbitWeavers ();
 
-		foreach (GameObject g in activateChunks) {
-			g.SetActive (true);
+		if (activateChunks.Length > 0) {
+			foreach (GameObject g in activateChunks) {
+				g.SetActive (true);
+			}
 		}
-		foreach (GameObject g in deactivateChunks) {
-			g.SetActive (false);
+
+		if (deactivateChunks.Length > 0) {
+			foreach (GameObject g in deactivateChunks) {
+				g.SetActive (false);
+			}
 		}
+
 
 		Player.player.checkpoint = this.gameObject;
 
